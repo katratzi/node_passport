@@ -1,0 +1,22 @@
+if in doubt...console.log()!
+
+to check mondodb
+
+cd to mongo install directory
+C:\MongoDB\Server\4.0\bin
+run ...
+>mongo
+
+> show dbs
+admin        0.000GB
+config       0.000GB
+local        0.000GB
+myproject    0.000GB
+passportapp  0.000GB
+> use passportapp
+switched to db passportapp
+> show collections
+users
+> db.users.find()
+{ "_id" : ObjectId("5c3f978c4263e209a4464500"), "name" : "hello", "email" : "hello@hello.com", "username" : "otm", "password" : "otm", "password2" : "otm" }
+>

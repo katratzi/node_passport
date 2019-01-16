@@ -1,33 +1,42 @@
 <%- include('includes/header') %>
+<div class="container reg-page">
+    <%if (locals.errors) { %>
+    <% errors.forEach(function(error){ %>
+    <div class="alert alert-danger">
+        <%= error.msg %>
+    </div>
 
-<form class="form-signin">
-    <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+    <% }) %>
+    <% } %>
+    <form method="post" action="/users/register" class="form-signin">
+        <img class="mb-4" src="/docs/4.2/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
 
-    <!--Name-->
-    <h1 class="h3 mb-3 font-weight-normal text-center">User Registration</h1>
-    <label class="sr-only">Name</label>
-    <input type="text" id="name" class="form-control" placeholder="name" required autofocus>
-    <br>
-    <!--Email-->
-    <label class="sr-only">Email</label>
-    <input type="text" id="email" class="form-control" placeholder="email" required autofocus>
-    <br>
-    <!--Name-->
-    <label class="sr-only">Username</label>
-    <input type="text" id="username" class="form-control" placeholder="username" required autofocus>
-    <br>
-    <!--Password-->
-    <label class="sr-only">Password</label>
-    <input type="password" name="password" class="form-control" placeholder="Password" required>
-    <label class="sr-only">Confirm Password</label>
-    <input type="password" name="password2" class="form-control" placeholder="Password Confirm" required>
+        <!--Name-->
+        <h1 class="h3 mb-3 font-weight-normal text-center">User Registration</h1>
+        <label class="sr-only">Name</label>
+        <input type="text" name="name" class="form-control" placeholder="name" value="<%= (!!locals.name ? name : '') %>">
+        <br>
+        <!--Email-->
+        <label class="sr-only">Email</label>
+        <input type="text" name="email" class="form-control" placeholder="email" value="<%= (!!locals.email ? email : '') %>">
+        <br>
+        <!--Name-->
+        <label class="sr-only">Username</label>
+        <input type="text" name="username" class="form-control" placeholder="username" value="<%= (!!locals.username ? username : '') %>">
+        <br>
+        <!--Password-->
+        <label class="sr-only">Password</label>
+        <input type="password" name="password" class="form-control" placeholder="Password" value="<%= (!!locals.password ? password : '') %>">
+        <label class="sr-only">Confirm Password</label>
+        <input type="password" name="password2" class="form-control" placeholder="Password Confirm" value="<%= (!!locals.password2 ? password2 : '') %>">
 
 
-    <p>Have Account? <a href="/users/login">Login</a>
+        <p>Have Account? <a href="/users/login">Login</a>
 
-    </p>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </p>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign Up</button>
 
-</form>
+    </form>
+</div>
 
 <%- include('includes/footer') %>
