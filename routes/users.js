@@ -33,7 +33,7 @@ router.post('/register', function (req, res) {
     // validation    
     req.checkBody('name', 'Name is required').notEmpty();
     req.checkBody('email', 'Email field is required').notEmpty();
-    req.checkBody('email', 'Please use valid email').isEmail();    
+    req.checkBody('email', 'Please use valid email').isEmail();
     req.checkBody('username', 'username field is required').notEmpty();
     req.checkBody('password', 'password field is required').notEmpty();
     req.checkBody('password2', 'Passwords do not match').equals(password);
@@ -59,23 +59,31 @@ router.post('/register', function (req, res) {
             email: email,
             username: username,
             password: password,
-            password2: password2
         }
 
-        db.users.insert(newUser, function(err,doc) {
-            if(err){
-                res.send(err);
-            } else {
-                console.log('user added...');
+        // salt and hash password
+        bcrypt.genSalt(10, function (err, salt) {
+            bcrypt.hash(newUser.password, salt, function (err, hash) {
+                newUser.password = hash;
 
-                //success message
-                req.flash('success','You are registered and can now log in');
+                db.users.insert(newUser, function (err, doc) {
+                    if (err) {
+                        res.send(err);
+                    } else {
+                        console.log('user added...');
 
-                // redirect after register
-                res.location('/');
-                res.redirect('/')
-            }
-        })
+                        //success message
+                        req.flash('success', 'You are registered and can now log in');
+
+                        // redirect after register
+                        res.location('/');
+                        res.redirect('/')
+                    }
+                });
+            });
+        });
+
+
     }
 
 });
