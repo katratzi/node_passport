@@ -20,3 +20,7 @@ users
 > db.users.find()
 { "_id" : ObjectId("5c3f978c4263e209a4464500"), "name" : "hello", "email" : "hello@hello.com", "username" : "otm", "password" : "otm", "password2" : "otm" }
 >
+
+// to delete a single entry
+> db.users.deleteOne({name: "richard"})
+{ "acknowledged" : true, "deletedCount" : 1 }
