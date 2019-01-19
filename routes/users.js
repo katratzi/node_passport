@@ -90,11 +90,11 @@ router.post('/register', function (req, res) {
 });
 
 // mental note - mongo db uses _id
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     console.log("serialise");
     done(null, user._id);
-  });
-  
+});
+
 passport.deserializeUser(function (id, done) {
     console.log("deserialise");
     db.users.findOne({ _id: mongojs.ObjectID(id) }, function (err, user) {
@@ -105,11 +105,9 @@ passport.deserializeUser(function (id, done) {
 // define our local strategy
 passport.use(new localStrategy(
     function (username, password, done) {
-        db.users.findOne({ username: username }, function (err, user) {
-            
-            console.log("hello world");
+        db.users.findOne({ username: username }, function (err, user) {            
             // error
-            if (err) {
+            if (err) {                
                 console.log("passport error");
                 return done(err);
             }
@@ -127,7 +125,7 @@ passport.use(new localStrategy(
                 if (isMatch) {
                     return done(null, user);
                 } else {
-                    return done(null, false,{ message: 'incorrect password' });
+                    return done(null, false, { message: 'incorrect password' });
                 }
             });
 
